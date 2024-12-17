@@ -1,0 +1,89 @@
+### Получение отчета по фильмам  --
+GET http://localhost:8080/movie_report
+Content-Type: application/json
+
+### Получение отчета по пользователям
+GET http://localhost:8080/user_report
+Content-Type: application/json
+
+### Получение фильтрованных отзывов 
+GET http://localhost:8080/filtered_reviews
+Content-Type: application/json
+
+### Добавление отзыва пользователя +-
+POST http://localhost:8080/reviews
+Content-Type: application/json
+
+{
+    "text": "Отличный фильм!",
+    "rating": 7,
+    "movie_id": 1,
+    "user_id": 1
+}
+
+### Удаление отзыва пользователя 
+DELETE http://localhost:8080/reviews/2/1
+Content-Type: application/json
+
+### Добавление статьи
+POST http://localhost:8080/articles
+Content-Type: application/json
+
+{
+    "title": "Новый обзор",
+    "text": "Очень интересный фильм!",
+    "tags": ["обзор", "фильмы"],
+    "user_id": 1
+}
+
+### Удаление статьи
+DELETE http://localhost:8080/articles/1/1
+Content-Type: application/json
+
+### критик ревью --
+POST http://localhost:8080/critic_reviews 
+Content-Type: application/json
+
+{
+    "title": "title",
+    "text": "Отличный фильм!",
+    "rating": 5,
+    "movie_id": 1,
+    "user_id": 3
+}
+
+### удаления критик ревью --
+DELETE http://localhost:8080/critic_reviews/1/1
+Content-Type: application/json
+
+### Получение статистики пользователя ++
+GET http://localhost:8080/users/1/stats
+Content-Type: application/json
+
+### Получение среднего рейтинга от критиков --
+GET http://localhost:8080/functions/avg_critic_rating/1
+Content-Type: application/json
+
+### Получение среднего рейтинга от пользователей --
+GET http://localhost:8080/functions/avg_user_rating/1
+Content-Type: application/json
+
+### Получение информации о фильме с авг от пользователей и критиков--
+GET http://localhost:8080/functions/movie_info/1
+Content-Type: application/json
+
+### обновление рейтинга пользователя --
+PUT http://localhost:8080/functions/update_user_rating/1
+Content-Type: application/json
+
+### получение рейтинга пользователя --
+POST http://localhost:8080/save_movie
+Content-Type: application/json
+
+{
+    "title": "fgdfgdfgdf",
+    "description": "A mind-bending thriller by Christopher Nolan.",
+    "genres": ["Action", "Sci-Fi"],
+    "rating": 0,
+    "review_count": 0
+}

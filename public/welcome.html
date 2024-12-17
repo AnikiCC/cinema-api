@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome</title>
+  <link rel="stylesheet" href="./public/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome, <span id="username"></span></h2>
+  </div>
+
+  <script>
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "/login";
+    } else {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      document.getElementById("username").textContent = decodedToken.name;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cinema API</title>
+  <link rel="stylesheet" href="./public/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Cinema API</h2>
+    <form id="register-form">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="mail">Email</label>
+      <input type="email" id="mail" name="mail" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+
+      <label for="role">Role</label>
+      <select id="role" name="role">
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+        <option value="critic">Critic</option>
+      </select>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('register-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formData = new FormData(this);
+      const data = {
+        name: formData.get('name'),
+        mail: formData.get('mail'),
+        password: formData.get('password'),
+        role: formData.get('role')
+      };
+
+      fetch('http://localhost:8080/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => response.json())
+      .then(data => {
+    if (data.message) {
+      alert(data.message);
+      if (data.redirect) {
+        window.location.href = data.redirect;
+      }
+    } else {
+      alert("Registration failed");
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+      });
+    });
+  </script>
+</body>
+</html>

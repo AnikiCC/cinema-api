@@ -1,0 +1,28 @@
+name: 'cinema'
+
+services:
+  postgres:
+    image: 'postgres:15.9-alpine3.19'
+    restart: 'unless-stopped'
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_MASTER_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_MASTER_PASS}
+    volumes:
+      - './data/init.sql:/docker-entrypoint-initdb.d/init.sql'
+
+  pgweb:
+    image: 'sosedoff/pgweb:latest'
+    restart: 'unless-stopped'
+    ports:
+      - 8081:8081
+    depends_on:
+      - postgres
+    links:
+      - 'postgres:postgres'
+    environment:
+      PGWEB_DATABASE_URL: 'postgres://${POSTGRES_MASTER_USER}:${POSTGRES_MASTER_PASS}@postgres:5432/${POSTGRES_DATABASE}?sslmode=disable'
+      PGWEB_AUTH_USER: '${PG_WEB_USER}'
+      PGWEB_AUTH_PASS: '${PG_WEB_PASS}'
